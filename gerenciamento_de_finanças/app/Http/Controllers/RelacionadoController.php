@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers;
+Namespace App\Http\Controllers;
 
 use App\Models\Relacionado;
 use Illuminate\Http\Request;
@@ -14,17 +14,8 @@ class RelacionadoController extends Controller
      */
     public function index()
     {
-        //
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
+        $relacionados = Relacionado::all();
+        return $relacionados;
     }
 
     /**
@@ -35,7 +26,13 @@ class RelacionadoController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $nome = $request->input('nome');
+        $custo = request()->input('custo');
+        $descricao = request()->input('descricao');
+        $obra_id = request()->input('obra_id');
+        $p = Relacionado::create(['nome' => $nome, 'custo' => $custo, 'descricao' => $descricao, 'obra_id' => $obra_id]);
+        $id = $p->id;
+        return true; #analisar, é ideal que retorne um "refresh" da página
     }
 
     /**
@@ -46,18 +43,7 @@ class RelacionadoController extends Controller
      */
     public function show(Relacionado $relacionado)
     {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\Relacionado  $relacionado
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Relacionado $relacionado)
-    {
-        //
+        return $relacionado;
     }
 
     /**
@@ -69,7 +55,16 @@ class RelacionadoController extends Controller
      */
     public function update(Request $request, Relacionado $relacionado)
     {
-        //
+        $nome = request()->input('nome');
+        if ($nome)
+            $relacionado->nome = $nome;
+        $custo = request()->input('custo');
+        if ($custo)
+            $relacionado->custo = $custo;
+        $descricao = request()->input('descricao');
+        if ($descricao)
+            $relacionado->descricao = $descricao;
+        $relacionado->save();
     }
 
     /**
@@ -80,6 +75,6 @@ class RelacionadoController extends Controller
      */
     public function destroy(Relacionado $relacionado)
     {
-        //
+        $relacionado->delete();
     }
 }

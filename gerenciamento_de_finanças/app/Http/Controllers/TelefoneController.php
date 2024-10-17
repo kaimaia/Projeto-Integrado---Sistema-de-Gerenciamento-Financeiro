@@ -14,17 +14,8 @@ class TelefoneController extends Controller
      */
     public function index()
     {
-        //
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
+        $telefones = Telefone::all();
+        return $telefones;
     }
 
     /**
@@ -35,7 +26,11 @@ class TelefoneController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $numero = $request->input('numero');
+        $user_id = request()->input('user_id');
+        $p = Telefone::create(['numero' => $numero, 'user_id' => $user_id]);
+        $id = $p->id;
+        return true; #analisar, é ideal que retorne um "refresh" da página
     }
 
     /**
@@ -46,18 +41,7 @@ class TelefoneController extends Controller
      */
     public function show(Telefone $telefone)
     {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\Telefone  $telefone
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Telefone $telefone)
-    {
-        //
+        return $telefone;
     }
 
     /**
@@ -69,7 +53,10 @@ class TelefoneController extends Controller
      */
     public function update(Request $request, Telefone $telefone)
     {
-        //
+        $numero = request()->input('numero');
+        if ($numero)
+            $telefone->numero = $numero;
+        $telefone->save();
     }
 
     /**
@@ -80,6 +67,6 @@ class TelefoneController extends Controller
      */
     public function destroy(Telefone $telefone)
     {
-        //
+        $telefone->delete();
     }
 }

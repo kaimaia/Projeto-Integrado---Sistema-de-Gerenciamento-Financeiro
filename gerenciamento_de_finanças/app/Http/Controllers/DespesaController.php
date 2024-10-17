@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers;
+Namespace App\Http\Controllers;
 
 use App\Models\Despesa;
 use Illuminate\Http\Request;
@@ -14,17 +14,8 @@ class DespesaController extends Controller
      */
     public function index()
     {
-        //
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
+        $despesas = Despesa::all();
+        return $despesas;
     }
 
     /**
@@ -35,7 +26,13 @@ class DespesaController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $nome = $request->input('nome');
+        $custo = request()->input('custo');
+        $descricao = request()->input('descricao');
+        $obra_id = request()->input('obra_id');
+        $p = Relacionado::create(['nome' => $nome, 'custo' => $custo, 'descricao' => $descricao, 'obra_id' => $obra_id]);
+        $id = $p->id;
+        return true; #analisar, é ideal que retorne um "refresh" da página
     }
 
     /**
@@ -46,18 +43,7 @@ class DespesaController extends Controller
      */
     public function show(Despesa $despesa)
     {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\Despesa  $despesa
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Despesa $despesa)
-    {
-        //
+        return $despesa;
     }
 
     /**
@@ -69,7 +55,16 @@ class DespesaController extends Controller
      */
     public function update(Request $request, Despesa $despesa)
     {
-        //
+        $nome = request()->input('nome');
+        if ($nome)
+            $despesa->nome = $nome;
+        $custo = request()->input('custo');
+        if ($custo)
+            $despesa->custo = $custo;
+        $descricao = request()->input('descricao');
+        if ($descricao)
+            $despesa->descricao = $descricao;
+        $despesa->save();
     }
 
     /**
@@ -80,6 +75,6 @@ class DespesaController extends Controller
      */
     public function destroy(Despesa $despesa)
     {
-        //
+        $despesa->delete();
     }
 }

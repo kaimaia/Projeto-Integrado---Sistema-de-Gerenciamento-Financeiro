@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Http\Controllers;
+Namespace App\Http\Controllers;
 
-use App\Models\Obras;
+use App\Models\Obra;
 use Illuminate\Http\Request;
 
-class ObrasController extends Controller
+class ObraController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -14,17 +14,8 @@ class ObrasController extends Controller
      */
     public function index()
     {
-        //
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
+        $obras = Obra::all();
+        return $obras;
     }
 
     /**
@@ -35,51 +26,55 @@ class ObrasController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $cliente = $request->input('cliente');
+        $localizacao = request()->input('localizacao');
+        $descricao = request()->input('descricao');
+        $user_id = request()->input('user_id');
+        $p = Obra::create(['cliente' => $cliente, 'localizacao' => $localizacao, 'descricao' => $descricao, 'user_id' => $user_id]);
+        $id = $p->id;
+        return true; #analisar, é ideal que retorne um "refresh" da página
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Obras  $obras
+     * @param  \App\Models\Obra  $obra
      * @return \Illuminate\Http\Response
      */
-    public function show(Obras $obras)
+    public function show(Obra $obra)
     {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\Obras  $obras
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Obras $obras)
-    {
-        //
+        return $obra;
     }
 
     /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Obras  $obras
+     * @param  \App\Models\Obra  $obra
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Obras $obras)
+    public function update(Request $request, Obra $obra)
     {
-        //
+        $cliente = request()->input('cliente');
+        if ($cliente)
+            $obra->cliente = $cliente;
+        $localizacao = request()->input('localizacao');
+        if ($localizacao)
+            $obra->localizacao = $localizacao;
+        $descricao = request()->input('descricao');
+        if ($descricao)
+            $obra->descricao = $descricao;
+        $obra->save();
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Obras  $obras
+     * @param  \App\Models\Obra  $obra
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Obras $obras)
+    public function destroy(Obra $obra)
     {
-        //
+        $obra->delete();
     }
 }
