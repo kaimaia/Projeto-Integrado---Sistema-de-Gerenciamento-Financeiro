@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Usuario;
+use App\Models\User;
 use Illuminate\Http\Request;
 
-class UsuarioController extends Controller
+class UserController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -14,7 +14,7 @@ class UsuarioController extends Controller
      */
     public function index()
     {
-        $usuarios = Usuario::all();
+        $usuarios = User::all();
         return $usuarios;
     }
 
@@ -26,11 +26,11 @@ class UsuarioController extends Controller
      */
     public function store(Request $request)
     {
-        $nome = $request->input('nome');
+        $name = $request->input('name');
         $email = request()->input('email');
-        $funcao = request()->input('funcao');
-        $senha = request()->input('senha');
-        $p = Usuario::create(['nome' => $nome, 'email' => $email, 'funcao' => $funcao, 'senha' => $senha]);
+        $function = request()->input('function');
+        $password = request()->input('password');
+        $p = User::create(['name' => $name, 'email' => $email, 'function' => $function, 'password' => $password]);
         $id = $p->id;
         return response(
             ['location' => route('usuarios.show', $id)],
@@ -41,10 +41,10 @@ class UsuarioController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Usuario  $usuario
+     * @param  \App\Models\User  $usuario
      * @return \Illuminate\Http\Response
      */
-    public function show(Usuario $usuario)
+    public function show(User $usuario)
     {
         return $usuario;
     }
@@ -53,33 +53,33 @@ class UsuarioController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Usuario  $usuario
+     * @param  \App\Models\User  $usuario
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Usuario $usuario)
+    public function update(Request $request, User $usuario)
     {
-        $nome = request()->input('nome');
-        if ($nome)
-            $usuario->nome = $nome;
+        $name = request()->input('name');
+        if ($name)
+            $usuario->name = $name;
         $email = request()->input('email');
         if ($email)
             $usuario->email = $email;
-        $funcao = request()->input('funcao');
-        if ($funcao)
-            $usuario->funcao = $funcao;
-        $senha = request()->input('senha');
-        if ($senha)
-            $usuario->senha = $senha;
+        $function = request()->input('function');
+        if ($function)
+            $usuario->function = $function;
+        $password = request()->input('password');
+        if ($password)
+            $usuario->password = $password;
         $usuario->save();
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Usuario  $usuario
+     * @param  \App\Models\User  $usuario
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Usuario $usuario)
+    public function destroy(User $usuario)
     {
         $usuario->delete();
     }

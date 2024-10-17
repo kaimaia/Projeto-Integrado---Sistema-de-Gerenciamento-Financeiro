@@ -16,6 +16,13 @@ return new class extends Migration
         Schema::create('despesas', function (Blueprint $table) {
             $table->id();
             $table->timestamps();
+
+            $table->string("nome");
+            $table->floatval("custo");
+            $table->string("descricao");
+            
+            $table->unsignedBigInteger('obra_id');  
+            $table->foreign('obra_id')->references('id')->on('obras');
         });
     }
 

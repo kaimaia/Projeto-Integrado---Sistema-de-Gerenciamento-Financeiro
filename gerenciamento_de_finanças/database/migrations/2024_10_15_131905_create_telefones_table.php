@@ -16,6 +16,11 @@ return new class extends Migration
         Schema::create('telefones', function (Blueprint $table) {
             $table->id();
             $table->timestamps();
+
+            $table->string('numero');
+            
+            $table->unsignedBigInteger('user_id');  
+            $table->foreign('user_id')->references('id')->on('users');
         });
     }
 

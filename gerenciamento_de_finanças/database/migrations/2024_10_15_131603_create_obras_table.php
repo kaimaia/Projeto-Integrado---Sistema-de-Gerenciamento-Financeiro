@@ -16,6 +16,13 @@ return new class extends Migration
         Schema::create('obras', function (Blueprint $table) {
             $table->id();
             $table->timestamps();
+
+            $table->string("cliente");
+            $table->string("localizacao");
+            $table->string("descricao");
+            
+            $table->unsignedBigInteger('user_id');  
+            $table->foreign('user_id')->references('id')->on('users');
         });
     }
 
