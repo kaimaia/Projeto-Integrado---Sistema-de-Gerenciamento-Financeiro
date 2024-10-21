@@ -33,7 +33,7 @@ class UserController extends Controller
         $p = User::create(['name' => $name, 'email' => $email, 'function' => $function, 'password' => $password]);
         $id = $p->id;
         return response(
-            ['location' => route('usuarios.show', $id)],
+            ['location' => route('users.show', $id)],
             201
         );
     }
@@ -44,9 +44,10 @@ class UserController extends Controller
      * @param  \App\Models\User  $usuario
      * @return \Illuminate\Http\Response
      */
-    public function show(User $usuario)
+    public function show(Request $request, int $id)
     {
-        return $usuario;
+        $u = User::find($id);
+        return $u;
     }
 
     /**

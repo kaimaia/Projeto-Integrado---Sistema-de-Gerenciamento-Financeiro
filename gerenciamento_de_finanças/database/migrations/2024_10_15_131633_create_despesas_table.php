@@ -18,7 +18,7 @@ return new class extends Migration
             $table->timestamps();
 
             $table->string("nome");
-            $table->floatval("custo");
+            $table->float("custo");
             $table->string("descricao");
             
             $table->unsignedBigInteger('obra_id');  
