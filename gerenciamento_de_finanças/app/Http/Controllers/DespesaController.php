@@ -41,8 +41,9 @@ class DespesaController extends Controller
      * @param  \App\Models\Despesa  $despesa
      * @return \Illuminate\Http\Response
      */
-    public function show(Despesa $despesa)
+    public function show(Request $request, int $id)
     {
+        $despesa = Despesa::find($id);
         return $despesa;
     }
 
@@ -53,8 +54,9 @@ class DespesaController extends Controller
      * @param  \App\Models\Despesa  $despesa
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Despesa $despesa)
+    public function update(Request $request, int $id)
     {
+        $despesa = Despesa::find($id);
         $nome = request()->input('nome');
         if ($nome)
             $despesa->nome = $nome;
@@ -73,8 +75,9 @@ class DespesaController extends Controller
      * @param  \App\Models\Despesa  $despesa
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Despesa $despesa)
+    public function destroy(Request $request, int $id)
     {
+        $despesa = Despesa::find($id);
         $despesa->delete();
     }
 }

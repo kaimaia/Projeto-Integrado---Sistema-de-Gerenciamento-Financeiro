@@ -41,8 +41,9 @@ class ObraController extends Controller
      * @param  \App\Models\Obra  $obra
      * @return \Illuminate\Http\Response
      */
-    public function show(Obra $obra)
+    public function show(Request $request, int $id)
     {
+        $obra = Obra::find($id);
         return $obra;
     }
 
@@ -53,8 +54,9 @@ class ObraController extends Controller
      * @param  \App\Models\Obra  $obra
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Obra $obra)
+    public function update(Request $request, int $id)
     {
+        $obra = Obra::find($id);
         $cliente = request()->input('cliente');
         if ($cliente)
             $obra->cliente = $cliente;
@@ -73,8 +75,9 @@ class ObraController extends Controller
      * @param  \App\Models\Obra  $obra
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Obra $obra)
+    public function destroy(Request $request, int $id)
     {
+        $obra = Obra::find($id);
         $obra->delete();
     }
 }

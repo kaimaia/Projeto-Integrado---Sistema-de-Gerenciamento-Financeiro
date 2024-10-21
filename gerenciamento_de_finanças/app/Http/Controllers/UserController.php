@@ -28,9 +28,9 @@ class UserController extends Controller
     {
         $name = $request->input('name');
         $email = request()->input('email');
-        $function = request()->input('function');
+        $job = request()->input('job');
         $password = request()->input('password');
-        $p = User::create(['name' => $name, 'email' => $email, 'function' => $function, 'password' => $password]);
+        $p = User::create(['name' => $name, 'email' => $email, 'job' => $job, 'password' => $password]);
         $id = $p->id;
         return response(
             ['location' => route('users.show', $id)],
@@ -46,8 +46,8 @@ class UserController extends Controller
      */
     public function show(Request $request, int $id)
     {
-        $u = User::find($id);
-        return $u;
+        $usuario = User::find($id);
+        return $usuario;
     }
 
     /**
@@ -57,17 +57,18 @@ class UserController extends Controller
      * @param  \App\Models\User  $usuario
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, User $usuario)
+    public function update(Request $request, int $id)
     {
+        $usuario = User::find($id);
         $name = request()->input('name');
         if ($name)
             $usuario->name = $name;
         $email = request()->input('email');
         if ($email)
             $usuario->email = $email;
-        $function = request()->input('function');
-        if ($function)
-            $usuario->function = $function;
+        $job = request()->input('job');
+        if ($job)
+            $usuario->job = $job;
         $password = request()->input('password');
         if ($password)
             $usuario->password = $password;
@@ -80,8 +81,9 @@ class UserController extends Controller
      * @param  \App\Models\User  $usuario
      * @return \Illuminate\Http\Response
      */
-    public function destroy(User $usuario)
+    public function destroy(Request $request, int $id)
     {
+        $usuario = User::find($id);
         $usuario->delete();
     }
 }

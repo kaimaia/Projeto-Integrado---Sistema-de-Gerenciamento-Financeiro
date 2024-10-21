@@ -41,8 +41,9 @@ class RelacionadoController extends Controller
      * @param  \App\Models\Relacionado  $relacionado
      * @return \Illuminate\Http\Response
      */
-    public function show(Relacionado $relacionado)
+    public function show(Request $request, int $id)
     {
+        $relacionado = Relacionado::find($id);
         return $relacionado;
     }
 
@@ -53,8 +54,9 @@ class RelacionadoController extends Controller
      * @param  \App\Models\Relacionado  $relacionado
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Relacionado $relacionado)
+    public function update(Request $request, int $id)
     {
+        $relacionado = Relacionado::find($id);
         $nome = request()->input('nome');
         if ($nome)
             $relacionado->nome = $nome;
@@ -73,8 +75,9 @@ class RelacionadoController extends Controller
      * @param  \App\Models\Relacionado  $relacionado
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Relacionado $relacionado)
+    public function destroy(Request $request, int $id)
     {
+        $relacionado = Relacionado::find($id);
         $relacionado->delete();
     }
 }

@@ -39,8 +39,9 @@ class TelefoneController extends Controller
      * @param  \App\Models\Telefone  $telefone
      * @return \Illuminate\Http\Response
      */
-    public function show(Telefone $telefone)
+    public function show(Request $request, int $id)
     {
+        $telefone = Telefone::find($id);
         return $telefone;
     }
 
@@ -51,8 +52,9 @@ class TelefoneController extends Controller
      * @param  \App\Models\Telefone  $telefone
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Telefone $telefone)
+    public function update(Request $request, int $id)
     {
+        $telefone = Telefone::find($id);
         $numero = request()->input('numero');
         if ($numero)
             $telefone->numero = $numero;
@@ -65,8 +67,9 @@ class TelefoneController extends Controller
      * @param  \App\Models\Telefone  $telefone
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Telefone $telefone)
+    public function destroy(Request $request, int $id)
     {
+        $telefone = Telefone::find($id);
         $telefone->delete();
     }
 }
