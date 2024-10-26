@@ -58,14 +58,17 @@ class ObraController extends Controller
     {
         $obra = Obra::find($id);
         $cliente = request()->input('cliente');
-        if ($cliente)
+        if ($cliente){
             $obra->cliente = $cliente;
+        }
         $localizacao = request()->input('localizacao');
-        if ($localizacao)
+        if ($localizacao){
             $obra->localizacao = $localizacao;
+        }
         $descricao = request()->input('descricao');
-        if ($descricao)
+        if ($descricao){
             $obra->descricao = $descricao;
+        }
         $obra->save();
     }
 

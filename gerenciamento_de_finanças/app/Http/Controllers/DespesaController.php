@@ -30,7 +30,7 @@ class DespesaController extends Controller
         $custo = request()->input('custo');
         $descricao = request()->input('descricao');
         $obra_id = request()->input('obra_id');
-        $p = Relacionado::create(['nome' => $nome, 'custo' => $custo, 'descricao' => $descricao, 'obra_id' => $obra_id]);
+        $p = Despesa::create(['nome' => $nome, 'custo' => $custo, 'descricao' => $descricao, 'obra_id' => $obra_id]);
         $id = $p->id;
         return true; #analisar, é ideal que retorne um "refresh" da página
     }
