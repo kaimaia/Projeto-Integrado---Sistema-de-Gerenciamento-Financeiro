@@ -1,0 +1,62 @@
+openapi: '3.0.3'
+info:
+  title: Sistema de Gerenciamento Financeiro
+  version: '1.0'
+servers:
+  - url: http://{host}:{porta}/api
+    variables:
+      host:
+        default: localhost
+      porta:
+        default: '8000'
+
+paths:
+  /users:
+    get:
+      operationId: get
+      summary: Acessar usuários
+      responses:
+        '200':
+          description: OK
+      
+    post:
+      summary: Cadastrar um usuário
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                  description: Nome do usuário
+                  example: Kaiane
+                email:
+                  type: string
+                  description: Email do usuário
+                  example: kaiane.xxxx@gmail.com
+                job:
+                  type: string
+                  description: Função do usuário
+                  example: Mestre de obras
+                password:
+                  type: string
+                  description: Senha do usuário
+                  example: '123123'
+
+      responses:
+        201:
+          description: Usuário criado
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  location:
+                    type: string
+                    description: O URI do novo recurso criado.
+        400:
+          description: Requisição inválida
+
+                
