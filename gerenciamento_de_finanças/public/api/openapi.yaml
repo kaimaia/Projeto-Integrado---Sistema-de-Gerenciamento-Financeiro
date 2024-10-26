@@ -59,4 +59,66 @@ paths:
         400:
           description: Requisição inválida
 
+  /users/{id}:
+    parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+
+    get:
+      summary: Acessa um usuário
+      responses:
+        200:
+          description: Ok
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  name:
+                    type: string
+                  email:
+                    type: string
+                  job:
+                    type: string
+                  password:
+                    type: string
+        404:
+          description: Não encontrado
+
+    delete:
+      summary: Apaga um usuário
+      responses:
+        200:
+          description: Ok
+        404:
+          description: Não encontrado.
+
+    put:
+      summary: Altera um usuário
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                  description: O nome da pessoa.
+                  example: Kaiane
+                idade:
+                  type: integer
+                  description: A idade da pessoa.
+                  example: 19
+      responses:
+        200:
+          description: OK
+        404:
+          description: Não encontado.
+
+
+
                 
