@@ -1,6 +1,7 @@
 openapi: '3.0.3'
 info:
   title: Sistema de Gerenciamento Financeiro
+  description: No intuito de auxiliar o trabalho manual feito por um mestre de obra - João Bosco, avô de Ricken Diniz -, surgiu a ideia de criar um serviço que automatize-o. O projeto será responsável por substituir a tarefa da escrita manual de planilhas e notas fiscais no Word, para isso, ele irá contar com formulários interativos que irão receber apenas os dados e escrever automaticamente as planilhas, preparando-as prontamente para a impressão.
   version: '1.0'
 servers:
   - url: http://{host}:{porta}/api
@@ -44,7 +45,6 @@ paths:
                   type: string
                   description: Senha do usuário
                   example: '123123'
-
       responses:
         201:
           description: Usuário criado
@@ -107,12 +107,20 @@ paths:
               properties:
                 name:
                   type: string
-                  description: O nome da pessoa.
+                  description: Nome do usuário
                   example: Kaiane
-                idade:
-                  type: integer
-                  description: A idade da pessoa.
-                  example: 19
+                email:
+                  type: string
+                  description: Email do usuário
+                  example: kaiane.xxxx@gmail.com
+                job:
+                  type: string
+                  description: Função do usuário
+                  example: Mestre de obras
+                password:
+                  type: string
+                  description: Senha do usuário
+                  example: '123123'
       responses:
         200:
           description: OK
