@@ -12,9 +12,9 @@ class RelacionadoController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(string $id_obra)
     {
-        $relacionados = Relacionado::all();
+        $relacionados = Relacionado::all()->where('obra_id', $id_obra);
         return $relacionados;
     }
 
@@ -24,12 +24,12 @@ class RelacionadoController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(string $id_obra, Request $request)
     {
         $nome = $request->input('nome');
         $custo = request()->input('custo');
         $descricao = request()->input('descricao');
-        $obra_id = request()->input('obra_id');
+        $obra_id = $id_obra;
         $p = Relacionado::create(['nome' => $nome, 'custo' => $custo, 'descricao' => $descricao, 'obra_id' => $obra_id]);
         $id = $p->id;
         return true; #analisar, é ideal que retorne um "refresh" da página
@@ -41,9 +41,9 @@ class RelacionadoController extends Controller
      * @param  \App\Models\Relacionado  $relacionado
      * @return \Illuminate\Http\Response
      */
-    public function show(Request $request, int $id)
+    public function show(string $id_obra, int $id_relacionado, Request $request)
     {
-        $relacionado = Relacionado::find($id);
+        $relacionado = Relacionado::find($id_relacionado)->where('obra_id', $id_obra);
         return $relacionado;
     }
 
@@ -54,9 +54,9 @@ class RelacionadoController extends Controller
      * @param  \App\Models\Relacionado  $relacionado
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, int $id)
+    public function update(string $id_obra, int $id_relacionado, Request $request)
     {
-        $relacionado = Relacionado::find($id);
+        $relacionado = Relacionado::find($id_relacionado)->where('obra_id', $id_obra);
         $nome = request()->input('nome');
         if ($nome)
             $relacionado->nome = $nome;
@@ -75,9 +75,9 @@ class RelacionadoController extends Controller
      * @param  \App\Models\Relacionado  $relacionado
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Request $request, int $id)
+    public function destroy(string $id_obra, int $id_relacionado, Request $request)
     {
-        $relacionado = Relacionado::find($id);
+        $relacionado = Relacionado::find($id_relacionado)->where('obra_id', $id_obra);
         $relacionado->delete();
     }
 }

@@ -21,6 +21,6 @@ use Illuminate\Support\Facades\Route;
 
 Route::apiResource('users', UserController::class);
 Route::apiResource('obras', ObraController::class);
-Route::apiResource('relacionados', RelacionadoController::class);
-Route::apiResource('despesas', DespesaController::class);
+Route::apiResource('obras.relacionados', RelacionadoController::class);
+Route::apiResource('obras.despesas', DespesaController::class);
 Route::apiResource('telefones', TelefoneController::class);

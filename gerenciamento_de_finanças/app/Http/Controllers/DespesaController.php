@@ -12,9 +12,9 @@ class DespesaController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(string $id_obra)
     {
-        $despesas = Despesa::all();
+        $despesas = Despesa::all()->where('obra_id', $id_obra);
         return $despesas;
     }
 
@@ -24,12 +24,12 @@ class DespesaController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(string $id_obra, Request $request)
     {
         $nome = $request->input('nome');
         $custo = request()->input('custo');
         $descricao = request()->input('descricao');
-        $obra_id = request()->input('obra_id');
+        $obra_id = $id_obra;
         $p = Despesa::create(['nome' => $nome, 'custo' => $custo, 'descricao' => $descricao, 'obra_id' => $obra_id]);
         $id = $p->id;
         return true; #analisar, é ideal que retorne um "refresh" da página
@@ -41,9 +41,9 @@ class DespesaController extends Controller
      * @param  \App\Models\Despesa  $despesa
      * @return \Illuminate\Http\Response
      */
-    public function show(Request $request, int $id)
+    public function show(string $id_obra, int $id_despesa, Request $request)
     {
-        $despesa = Despesa::find($id);
+        $despesa = Despesa::find($id_despesa)->where('obra_id', $id_obra);
         return $despesa;
     }
 
@@ -54,9 +54,9 @@ class DespesaController extends Controller
      * @param  \App\Models\Despesa  $despesa
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, int $id)
+    public function update(string $id_obra, int $id_despesa, Request $request)
     {
-        $despesa = Despesa::find($id);
+        $despesa = Despesa::find($id_despesa)->where('obra_id', $id_obra);
         $nome = request()->input('nome');
         if ($nome)
             $despesa->nome = $nome;
@@ -75,9 +75,9 @@ class DespesaController extends Controller
      * @param  \App\Models\Despesa  $despesa
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Request $request, int $id)
+    public function destroy(string $id_obra, int $id_despesa, Request $request)
     {
-        $despesa = Despesa::find($id);
+        $despesa = Despesa::find($id_despesa)->where('obra_id', $id_obra);
         $despesa->delete();
     }
 }

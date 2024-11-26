@@ -65,7 +65,7 @@ paths:
         in: path
         required: true
         schema:
-          type: string
+          type: integer
 
     get:
       summary: Acessa um usuário
@@ -172,7 +172,7 @@ paths:
         in: path
         required: true
         schema:
-          type: string
+          type: integer
 
     get:
       summary: Acessa um telefone
@@ -275,7 +275,7 @@ paths:
         in: path
         required: true
         schema:
-          type: string
+          type: integer
 
     get:
       summary: Acessa uma obra
@@ -337,7 +337,13 @@ paths:
         404:
           description: Não encontado.
 
-  /despesas:
+  /obras/{id_obra}/despesas:
+    parameters:
+      - name: id_obras
+        in: path
+        required: true
+        schema:
+          type: integer
     get:
       operationId: get
       summary: Acessar despesas
@@ -384,13 +390,18 @@ paths:
         400:
           description: Requisição inválida
 
-  /despesas/{id}:
+  /obras/{id_obra}/despesas/{id_despesa}:
     parameters:
-      - name: id
+      - name: id_obra
         in: path
         required: true
         schema:
-          type: string
+          type: integer
+      - name: id_despesa
+        in: path
+        required: true
+        schema:
+          type: integer
 
     get:
       summary: Acessa uma despesa
@@ -452,7 +463,13 @@ paths:
         404:
           description: Não encontado.
 
-  /relacionados:
+  /obras/{id_obra}/relacionados:
+    parameters:
+      - name: id_obra
+        in: path
+        required: true
+        schema:
+          type: integer
     get:
       operationId: get
       summary: Acessar relacionados
@@ -499,13 +516,18 @@ paths:
         400:
           description: Requisição inválida
 
-  /relacionados/{id}:
+  /obras/{id_obra}/relacionados/{id_relacionado}:
     parameters:
-      - name: id
+      - name: id_obra
         in: path
         required: true
         schema:
-          type: string
+          type: integer
+      - name: id_relacionado
+        in: path
+        required: true
+        schema:
+          type: integer
 
     get:
       summary: Acessa um relacionado
