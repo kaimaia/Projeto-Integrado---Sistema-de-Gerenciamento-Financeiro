@@ -43,7 +43,7 @@ class ObraController extends Controller
      */
     public function show(Request $request, int $id)
     {
-        $obra = Obra::find($id);
+        $obra = Obra::all()->where('user_id', $id);
         return $obra;
     }
 

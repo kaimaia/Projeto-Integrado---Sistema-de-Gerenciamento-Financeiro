@@ -30,12 +30,27 @@ class UserController extends Controller
         $email = request()->input('email');
         $job = request()->input('job');
         $password = request()->input('password');
-        $p = User::create(['name' => $name, 'email' => $email, 'job' => $job, 'password' => $password]);
-        $id = $p->id;
-        return response(
-            ['location' => route('users.show', $id)],
-            201
-        );
+        $user = User::where('email', $email)->first();
+        if($user){
+            if($user->password == $password){
+                return response(
+                    ['location' => route('users.show', $user->id),'userid' => $user->id],
+                    201
+                );
+            } else {
+                return response(
+                    ['error' => 'senha inválida'],
+                    500
+                );
+            }
+        } else {
+            $p = User::create(['name' => $name, 'email' => $email, 'job' => $job, 'password' => $password]);
+            $id = $p->id;
+            return response(
+                ['location' => route('users.show', $id),'userid' => $id],
+                201
+            );
+        }
     }
 
     /**
