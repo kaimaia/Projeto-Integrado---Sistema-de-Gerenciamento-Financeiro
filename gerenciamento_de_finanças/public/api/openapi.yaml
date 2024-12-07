@@ -222,10 +222,16 @@ paths:
         404:
           description: Não encontado.
 
-  /obras:
+  /users/{user_id}/obras:
+    parameters:
+      - name: user_id
+        in: path
+        required: true
+        schema:
+          type: integer
     get:
       operationId: get
-      summary: Acessar obras
+      summary: Acessar obras de um cliente
       responses:
         '200':
           description: OK
@@ -269,32 +275,24 @@ paths:
         400:
           description: Requisição inválida
 
-  /obras/{id}:
+  /users/{user_id}/obras/{obra_id}:
     parameters:
-      - name: id
+      - name: user_id
         in: path
         required: true
         schema:
-          type: integer
-
+          type: string
+      - name: obra_id
+        in: path
+        required: true
+        schema:
+          type: string
     get:
-      summary: Acessa uma obra
+      operationId: get
+      summary: Acessa uma obras de um cliente
       responses:
-        200:
-          description: Ok
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  cliente:
-                    type: string
-                  localizacao:
-                    type: string
-                  descricao:
-                    type: string
-                  user_id:
-                    type: integer
+        '200':
+          description: OK
         404:
           description: Não encontrado
 

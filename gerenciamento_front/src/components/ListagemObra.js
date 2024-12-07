@@ -6,11 +6,20 @@ import axios from 'axios';
 import { useNavigate } from "react-router-dom"; 
 
 const ListagemObra = () => {
+    const baseUrl = 'http://localhost:8000/api/users/'+localStorage.getItem('userid')+'/obras';
+    const navigate = useNavigate();
+    const storeObra = () => {
+      navigate('/cadastrar-obra');
+    };
+    const showObra = (obra) => {
+      navigate('/obra',{ state: obra });
+    };
+
     const userId = localStorage.getItem('userid');
     useEffect(()=>{
         const fetchData = async () => {
             // alert(localStorage.getItem('userid'));
-            axios.get('http://localhost:8000/api/obras/'+localStorage.getItem('userid'), null, {
+            axios.get(baseUrl, null, {
                 headers: {
                     'Content-Type': 'application/json',
                 },
@@ -25,7 +34,7 @@ const ListagemObra = () => {
     // para pegar
 
     return(
-        <div style={{backgroundColor: "#2C2C2C", color: "white", padding: "15px", height: "100vh"}}>
+        <div style={{backgroundColor: "#2C2C2C", color: "white", padding: "15px", minHeight: "100vh"}}>
             <div className="container">
                 <h1>Obras</h1>
                 <ul>
@@ -36,12 +45,40 @@ const ListagemObra = () => {
                             </ul>
                             <ul>
                                 Local: {obra.localizacao}
-                            </ul>    
+                            </ul>   
+                            <ul>
+                                Descrição: {obra.descricao}
+                            </ul>  
+                            <ul>
+                                <button onClick={
+                                    async () => {
+                                        axios.get(baseUrl+'/'+obra.id, null, {
+                                            headers: {
+                                                'Content-Type': 'application/json',
+                                            },
+                                        })
+                                        .then(response => showObra(response.data))
+                                        .catch(error => alert('Erro ao mostrar obra: ' + error.message));
+                                    }
+                                }className="btn btn-light p-1 m-1">Ver obra</button>
+
+                                <button onClick={
+                                    async () => {
+                                        axios.delete(baseUrl+'/'+obra.id, null, {
+                                            headers: {
+                                                'Content-Type': 'application/json',
+                                            },
+                                        })
+                                        .then(response => {console.log(response.status);window.location.reload()})
+                                        .catch(error => alert('Erro ao apagar obra: ' + error.message));
+                                    }
+                                }className="btn btn-danger p-1 m-1">Apagar obra</button> 
+                            </ul> 
                         </li>))
                     }
                 </ul>
                 <div className="position-fixed bottom-0 end-0 d-flex flex-row-reverse bd-highlight">
-                        <button className="btn btn-light p-2 m-5 d-absolute">Nova Obra</button>
+                        <button onClick={storeObra} className="btn btn-light p-2 m-5 d-absolute">Nova Obra</button>
                 </div>
             </div>
         </div>

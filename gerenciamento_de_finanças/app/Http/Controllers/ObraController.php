@@ -12,9 +12,9 @@ class ObraController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(string $user_id)
     {
-        $obras = Obra::all();
+        $obras = Obra::all()->where('user_id', $user_id);
         return $obras;
     }
 
@@ -24,12 +24,11 @@ class ObraController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(string $user_id, Request $request)
     {
         $cliente = $request->input('cliente');
         $localizacao = request()->input('localizacao');
         $descricao = request()->input('descricao');
-        $user_id = request()->input('user_id');
         $p = Obra::create(['cliente' => $cliente, 'localizacao' => $localizacao, 'descricao' => $descricao, 'user_id' => $user_id]);
         $id = $p->id;
         return true; #analisar, é ideal que retorne um "refresh" da página
@@ -41,9 +40,9 @@ class ObraController extends Controller
      * @param  \App\Models\Obra  $obra
      * @return \Illuminate\Http\Response
      */
-    public function show(Request $request, int $id)
+    public function show(string $user_id, string $id, Request $request)
     {
-        $obra = Obra::all()->where('user_id', $id);
+        $obra = Obra::find($id);
         return $obra;
     }
 
@@ -54,7 +53,7 @@ class ObraController extends Controller
      * @param  \App\Models\Obra  $obra
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, int $id)
+    public function update(int $user_id, int $id,Request $request)
     {
         $obra = Obra::find($id);
         $cliente = request()->input('cliente');
@@ -78,7 +77,7 @@ class ObraController extends Controller
      * @param  \App\Models\Obra  $obra
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Request $request, int $id)
+    public function destroy(int $user_id, int $id,Request $request)
     {
         $obra = Obra::find($id);
         $obra->delete();

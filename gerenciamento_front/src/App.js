@@ -58,7 +58,12 @@ function App() {
         }/>
         <Route path='/cadastrar-obra' element={
           <>
-            <Navbar3/> <CadastroObra/> <Footer/>
+            <Navbar3/> <CadastroObra type='store'/> <Footer/>
+          </>
+        }/>
+        <Route path='/editar-obra' element={
+          <>
+            <Navbar3/> <CadastroObra type='edit'/> <Footer/>
           </>
         }/>
         <Route path='/cadastrar-despesa' element={
