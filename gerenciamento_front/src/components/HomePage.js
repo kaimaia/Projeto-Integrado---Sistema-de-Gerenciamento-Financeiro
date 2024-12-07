@@ -3,17 +3,25 @@ import maria from "./images/maria.png";
 import cristian from "./images/cristian.png";
 import ricken from "./images/ricken.png";
 import kaiane from "./images/kaiane.png";
+import { useNavigate } from "react-router-dom";
 
 const HomePage = () => {
+    const navigate = useNavigate();
+
+    const redirecCadastro = () => {
+        navigate('/cadastro');
+      };
     return (
         <div>
                 <div>
-                    <div>
+                    <div id="section1">
                         <div className="container-fluid d-flex align-items-center" style={{flexDirection: "column", position: "absolute", color: "white", marginTop: "200px"}}>
                             <h1 className="title mb-0">Gerenciador de Finanças</h1>
                             <h6 style={{fontWeight: "400", fontSize: "32px", color: "#ffffffb3"}} className="mb-3">Para mestres de obra</h6>
-                            <button className="btn btn-light" style={{paddingRight: "50px", paddingLeft: "50px", marginBottom: "10px"}}>Comece agora</button>
-                            <button className="btn btn-light" style={{paddingRight: "30px", paddingLeft: "30px"}}>Saiba mais</button>
+                            <button className="btn btn-light" style={{paddingRight: "50px", paddingLeft: "50px", marginBottom: "10px"}} onClick={redirecCadastro}>Comece agora</button>
+                            <button className="btn btn-light" style={{paddingRight: "30px", paddingLeft: "30px"}} onClick={() => document.getElementById('section2').scrollIntoView({ behavior: 'smooth' })}>
+                                Saiba mais
+                            </button>
                         </div>
 
                         <div  className="d-flex" style={{position: "static"}}>
@@ -21,7 +29,7 @@ const HomePage = () => {
                         </div>
                     </div>
                     
-                    <div className="d-flex" style={{background: "#F2F2F7"}}> 
+                    <div id="section2" className="d-flex" style={{background: "#F2F2F7"}}> 
                         <div style={{padding: "100px 50px 100px 50px", textAlign: "block", position: "static"}}>
                             <h1>Sobre o sistema</h1>
                             <div style={{marginLeft: "15px"}}>
